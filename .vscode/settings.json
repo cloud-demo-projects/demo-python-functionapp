@@ -1,5 +1,5 @@
 {
-    "azureFunctions.deploySubpath": "api",
+    "azureFunctions.deploySubpath": "src",
     "azureFunctions.scmDoBuildDuringDeployment": true,
     "azureFunctions.projectLanguage": "Python",
     "azureFunctions.projectRuntime": "~3",
