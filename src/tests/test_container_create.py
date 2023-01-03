@@ -1,8 +1,9 @@
 import unittest
 
-class TestContainerCreation(unittest.TestCase):
-    def TestContainerCreate(self):
-        self.assertEqual('foo'.upper(),'FOO')
+
+class Test_ContainerCreation(unittest.TestCase):
+    def test_container_create(self):
+        self.assertEqual('foo'.upper(), 'FOO')
 
 
 if __name__ == '__main__':

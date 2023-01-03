@@ -3,5 +3,14 @@
     "azureFunctions.scmDoBuildDuringDeployment": true,
     "azureFunctions.projectLanguage": "Python",
     "azureFunctions.projectRuntime": "~3",
-    "debug.internalConsoleOptions": "neverOpen"
+    "debug.internalConsoleOptions": "neverOpen",
+    "python.testing.unittestArgs": [
+        "-v",
+        "-s",
+        "./src",
+        "-p",
+        "test_*.py"
+    ],
+    "python.testing.pytestEnabled": false,
+    "python.testing.unittestEnabled": true
 }
