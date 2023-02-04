@@ -9,7 +9,7 @@
       "methods": [
         "post"
       ],
-      "route": "/api/storage/container"
+      "route": "v1/container"
     },
     {
       "type": "http",
