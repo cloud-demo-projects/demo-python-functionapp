@@ -29,6 +29,7 @@ param defaultTags object
 param vnetName string
 
 
+
 module appServicePlan_module '../bicep/appserviceplan.bicep' = {
   scope: resourceGroup(rg)
   name: 'deploy_appServicePlan'
@@ -55,6 +56,15 @@ module storageAccount_module '../bicep/storageaccount.bicep' = {
     storageAccountTags : storageAccountTags
     location: location
     subnetId: vnet_module.outputs.outsubnetId
+  }
+}
+
+module loganalytics_module '../bicep/loganalytics.bicep' = {
+  scope: resourceGroup(rg)
+  name: 'deploy_loganalytics'
+  params: {
+    logAnalyticsNamespaceName : logAnalytics.name
+    location: location
   }
 }
 
