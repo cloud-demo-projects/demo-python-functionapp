@@ -25,8 +25,8 @@ param storageAccountNameApp string
 @description('defaultTags')
 param defaultTags object
 
-@description('subnetid to bind funapp to')
-param subnetId string
+@description('vnetName to bind funapp to')
+param vnetName string
 
 
 module appServicePlan_module '../bicep/appserviceplan.bicep' = {
@@ -38,6 +38,15 @@ module appServicePlan_module '../bicep/appserviceplan.bicep' = {
   }
 }
 
+module vnet_module '../bicep/vnet.bicep' = {
+  scope: resourceGroup(rg)
+  name: 'deploy_vnet'
+  params: {
+    vnetName : vnetName
+    location: location
+  }
+}
+
 module storageAccount_module '../bicep/storageaccount.bicep' = {
   scope: resourceGroup(rg)
   name: 'deploy_storageAccount'
@@ -45,7 +54,7 @@ module storageAccount_module '../bicep/storageaccount.bicep' = {
     storageAccountNameApp : storageAccountNameApp
     storageAccountTags : storageAccountTags
     location: location
-    subnetId: subnetId
+    subnetId: vnet_module.outputs.outsubnetId
   }
 }
 
@@ -71,9 +80,9 @@ module functionApp_module '../bicep/functionapp.bicep' = {
     storageAccountId: storageAccount_module.outputs.outStorageAccountId
     applicationInsightsId: applicationInsights_module.outputs.outApplicationInsightsId
     location: location
-    subnetId: subnetId
+    subnetId: vnet_module.outputs.outsubnetId
   }
-  dependsOn: [ 
+  dependsOn: [
     storageAccount_module
     appServicePlan_module
     applicationInsights_module
@@ -86,7 +95,7 @@ module functionApp_web_module '../bicep/generalsettings.bicep' = {
   params: {
     functionAppName : functionAppName
   }
-  dependsOn: [ 
+  dependsOn: [
     functionApp_module
   ]
 }

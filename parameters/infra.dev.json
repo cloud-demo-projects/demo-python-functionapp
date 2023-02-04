@@ -36,8 +36,8 @@
         "functionAppName": {
             "value": "funapp-core-0001"
         },
-        "subnetId": {
-            "value": ""
+        "vnetName": {
+            "value": "core-vnet"
         }
     }
 }
