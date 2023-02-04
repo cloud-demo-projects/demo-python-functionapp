@@ -10,9 +10,6 @@ param location string
 @description('subnetid to bind funapp to')
 param subnetId string
 
-@description('ADO subnet ID')
-param vnetSCMSubnetID string
-
 
 resource storageAccount_resource 'Microsoft.Storage/storageAccounts@2021-04-01' = {
   name: storageAccountNameApp
@@ -34,11 +31,6 @@ resource storageAccount_resource 'Microsoft.Storage/storageAccounts@2021-04-01' 
       virtualNetworkRules: [
         {
           id: subnetId
-          action: 'Allow'
-          state: 'Succeeded'
-        }
-        {
-          id: vnetSCMSubnetID
           action: 'Allow'
           state: 'Succeeded'
         }
