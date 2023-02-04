@@ -19,8 +19,8 @@ param applicationInsightsId string
 @description('Location')
 param location string
 
-@description('edlSubnetId')
-param edlSubnetId string
+@description('subnetId')
+param subnetId string
 
 
 resource functionAppName_resource 'Microsoft.Web/sites@2020-06-01' = {
@@ -75,7 +75,7 @@ resource functionAppName_VirtualNetwork 'Microsoft.Web/sites/networkConfig@2016-
   parent: functionAppName_resource
   name: 'VirtualNetwork'
   properties: {
-    subnetResourceId: edlSubnetId
+    subnetResourceId: subnetId
     swiftSupported: true
   }
 }

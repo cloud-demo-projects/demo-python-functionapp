@@ -8,7 +8,7 @@ param storageAccountTags object
 param location string
 
 @description('subnetid to bind funapp to')
-param edlSubnetId string
+param subnetId string
 
 @description('ADO subnet ID')
 param vnetSCMSubnetID string
@@ -33,7 +33,7 @@ resource storageAccount_resource 'Microsoft.Storage/storageAccounts@2021-04-01' 
       bypass: 'AzureServices'
       virtualNetworkRules: [
         {
-          id: edlSubnetId
+          id: subnetId
           action: 'Allow'
           state: 'Succeeded'
         }
