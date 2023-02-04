@@ -85,7 +85,6 @@ module functionApp_web_module '../bicep/generalsettings.bicep' = {
   name: 'deploy_functionApp_web'
   params: {
     functionAppName : functionAppName
-    location: location
   }
   dependsOn: [ 
     functionApp_module

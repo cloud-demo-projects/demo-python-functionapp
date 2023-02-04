@@ -71,9 +71,9 @@ resource functionAppName_resource 'Microsoft.Web/sites@2020-06-01' = {
   }
 }
 
-resource functionAppName_VirtualNetwork 'Microsoft.Web/sites/networkConfig@2016-08-01' = {
+resource functionAppName_VirtualNetwork 'Microsoft.Web/sites/networkConfig@2021-01-01' = {
   parent: functionAppName_resource
-  name: 'VirtualNetwork'
+  name: 'virtualNetwork'
   properties: {
     subnetResourceId: subnetId
     swiftSupported: true

@@ -5,7 +5,7 @@ param appServicePlanName string
 param location string
 
 
-resource appServicePlan 'Microsoft.Web/serverfarms@2020-06-01' = {
+resource appServicePlan 'Microsoft.Web/serverfarms@2020-10-01' = {
   name: appServicePlanName
   location: location
   sku: {
@@ -17,8 +17,8 @@ resource appServicePlan 'Microsoft.Web/serverfarms@2020-06-01' = {
   }
   kind: 'linux'
   properties: {
-    name: appServicePlanName
-    computeMode: 'Dynamic'
+    //name: appServicePlanName
+    //computeMode: 'Dynamic'
     reserved: true
   }
 }

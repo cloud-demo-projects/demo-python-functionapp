@@ -1,13 +1,9 @@
 @description('Name of functionapp')
 param functionAppName string
 
-@description('Location')
-param location string
 
-
-resource functionAppName_web 'Microsoft.Web/sites/config@2020-06-01' = {
+resource functionAppName_web 'Microsoft.Web/sites/config@2022-03-01' = {
   name: '${functionAppName}/web'
-  location: location
   properties: {
     linuxFxVersion: 'PYTHON|3.9'
     remoteDebuggingEnabled: false

@@ -17,7 +17,6 @@ resource storageAccount_resource 'Microsoft.Storage/storageAccounts@2021-04-01' 
   tags: storageAccountTags
   sku: {
     name: 'Standard_LRS'
-    tier: 'Standard'
   }
   kind: 'StorageV2'
   properties: {

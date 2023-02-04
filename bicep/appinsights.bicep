@@ -10,12 +10,12 @@ param defaultTags object
 @description('Location')
 param location string
 
-resource applicationInsights_resource 'microsoft.insights/components@2020-02-02-preview' = {
+resource applicationInsights_resource 'Microsoft.Insights/components@2020-02-02' = {
   name: applicationInsightsName
   location: location
+  kind: 'web'
   tags: defaultTags
   properties: {
-    ApplicationId: applicationInsightsName
     Application_Type: 'web'
     WorkspaceResourceId: resourceId(logAnalytics.resourceGroup, 'Microsoft.OperationalInsights/workspaces', logAnalytics.name)
   }
