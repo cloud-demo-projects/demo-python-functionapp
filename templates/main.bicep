@@ -77,6 +77,9 @@ module applicationInsights_module '../bicep/appinsights.bicep' = {
     defaultTags : defaultTags
     location: location
   }
+  dependsOn: [
+    loganalytics_module
+  ]
 }
 
 module functionApp_module '../bicep/functionapp.bicep' = {
