@@ -7,7 +7,7 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-  serviceConnectionName: core-dev-sc
+  serviceConnectionName: sub-dev-eu-core
   resourceGroupName: rg-core-dev-001
 
 stages:
