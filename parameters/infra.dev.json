@@ -6,13 +6,13 @@
             "value": "westeurope"
         },
         "rg": {
-            "value": ""
+            "value": "rg-core-dev-001"
         },
         "appServicePlanName": {
-            "value": ""
+            "value": "asp-core-0001"
         },
         "storageAccountNameApp": {
-            "value": ""
+            "value": "safunappcore0001"
         },
         "storageAccountTags": {
             "value": {
@@ -21,12 +21,12 @@
         },
         "logAnalytics": {
             "value": {
-                "name": "",
-                "resourceGroup": ""
+                "name": "la-core-0001",
+                "resourceGroup": "rg-core-dev-001"
             }
         },
         "applicationInsightsName": {
-            "value": ""
+            "value": "appi-core-0001"
         },
         "defaultTags": {
             "value": {
@@ -34,7 +34,7 @@
             }
         },
         "functionAppName": {
-            "value": ""
+            "value": "funapp-core-0001"
         },
         "subnetId": {
             "value": ""
