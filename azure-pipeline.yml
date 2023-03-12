@@ -28,4 +28,5 @@ stages:
               --name core-deployment \
               --resource-group $(resourceGroupName) \
               --template-file "$(System.DefaultWorkingDirectory)/templates/main.bicep" \
-              --parameters "$(System.DefaultWorkingDirectory)/parameters/infra.dev.json"
+              --parameters "$(System.DefaultWorkingDirectory)/parameters/infra.dev.json" \
+              --verbose
