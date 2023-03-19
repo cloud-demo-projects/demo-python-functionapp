@@ -7,15 +7,14 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-  serviceConnectionName: sub-dev-eu-core (bf0f6779-86d2-467e-8226-10f92a8ad378)
-  resourceGroupName: rg-core-dev-001
+- template: variables/dev.yml
 
 stages:
 - stage:
   displayName: Dev
   jobs:
     - job:
-      displayName: Dev Deployment
+      displayName: EU Dev
       steps:
         - task: AzureCLI@1
           displayName: "Deploy - Infra"
