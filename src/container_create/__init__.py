@@ -24,10 +24,10 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     return run(req)
     
 def run(req: func.HttpRequest) -> str:
-    log_helper.log_info("Function execution started")
+    log_helper.log_info("Run function execution started")
 
     storage_account_name = "adls12133"
-    #default_credential = DefaultAzureCredential()
+    # default_credential = DefaultAzureCredential()
     default_credential = auth_helper.get_credentials()
     blob_service_client = BlobServiceClient(account_url="{}://{}.blob.core.windows.net".format(
         "https", storage_account_name), credential=default_credential)
