@@ -10,7 +10,6 @@ import uuid
 
 # Global Variables
 STORAGE_ACCOUNT = os.environ.get('STORAGE_ACCOUNT')
-
 RUN_ID = str(uuid.uuid4()) 
 log_helper = LogHelper(RUN_ID)
 auth_helper = AuthHelper()
