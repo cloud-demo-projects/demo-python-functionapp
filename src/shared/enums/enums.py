@@ -5,7 +5,7 @@ class ProvisioningStatus(Enum):
    Done = 'Done'
    Failed = 'Failed'
    Other = 'Other'
-   
+
 class HttpStatusReasons(Enum):
    'HTTP messages reasons'
    Unauthorized = 'The client application does not have permissions to call the API.'

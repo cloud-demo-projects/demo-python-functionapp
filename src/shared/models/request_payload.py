@@ -5,7 +5,7 @@ import os
 import re
 from json import JSONEncoder
 
-class CoreProducer(BaseModel): 
+class CoreProducer(BaseModel):
   StorageAccountName: str
   ContainerName: str
   VnetRules: Optional[list[Network]]

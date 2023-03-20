@@ -4,7 +4,7 @@ from azure.identity import DefaultAzureCredential
 from azure.storage.blob import BlobServiceClient
 from shared.helpers.log_helper import LogHelper
 from shared.helpers.auth_helper import AuthHelper
-from shared.models.request_payload import CoreProducer 
+from shared.models.request_payload import CoreProducer
 import json
 import base64
 import os
@@ -14,23 +14,23 @@ import uuid
 STORAGE_ACCOUNT = os.environ.get('STORAGE_ACCOUNT')
 BAD_REQUEST_MESSAGE = "Function execution finished with status 400 (Bad Request)"
 
-RUN_ID = str(uuid.uuid4()) 
+RUN_ID = str(uuid.uuid4())
 log_helper = LogHelper(RUN_ID)
 auth_helper = AuthHelper()
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
-    
+
     if (not auth_helper.is_authorized(req)):
         log_helper.log_error("Unthorized execution attempt")
         return func.HttpResponse(json.dumps({ 'reason' : HttpStatusReasons.Unauthorized.value }), mimetype="application/json",status_code=401)
-    
+
     return run(req)
-    
+
 def run(req: func.HttpRequest) -> str:
     log_helper.log_info("Run function execution started")
     response = CreateContainerResponse(RUN_ID)
-    
+
     # clientside validations
     try:
         req_body = req.get_json()
