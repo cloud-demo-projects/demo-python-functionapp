@@ -2,33 +2,46 @@ import logging
 import azure.functions as func
 from azure.identity import DefaultAzureCredential
 from azure.storage.blob import BlobServiceClient
+from shared.helpers.log_helper import LogHelper
 import json
 import base64
+import os
+import uuid
+
+# Global Variables
+STORAGE_ACCOUNT = os.environ.get('STORAGE_ACCOUNT')
+
+RUN_ID = str(uuid.uuid4()) 
+log_helper = LogHelper(RUN_ID)
+auth_helper = AuthHelper()
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
+    
+    if (not auth_helper.is_authorized(req)):
+        log_helper.log_error("Unthorized execution attempt")
+        return func.HttpResponse(json.dumps({ 'reason' : HttpStatusReasons.Unauthorized.value }), mimetype="application/json",status_code=401)
+    
+    return run(req)
+    
+def run(req: func.HttpRequest) -> str:
+    log_helper.log_info("Function execution started")
 
-    for header in req.headers:
-        logging.info(f"header-{header}")
+    storage_account_name = "adls12133"
+    #default_credential = DefaultAzureCredential()
+    default_credential = auth_helper.get_credentials()
+    blob_service_client = BlobServiceClient(account_url="{}://{}.blob.core.windows.net".format(
+        "https", storage_account_name), credential=default_credential)
 
-    if req.headers.get('X-MS-CLIENT-PRINCIPAL') != None:
-        clientPrincipal = req.headers.get('X-MS-CLIENT-PRINCIPAL') # Extract client principal from header
-        logging.info(f"clientPrincipal-{clientPrincipal}")
-        cp = json.loads(base64.b64decode(clientPrincipal).decode('utf-8')) # Decode client principal
-        logging.info(f"cp-{cp}")
-        roles = [x['val'] for x in cp['claims'] if x['typ'] == 'roles'] # Extract claims from client principal
-        logging.info(f"roles-{roles}")
-
-        storage_account_name = "adls12133"
-        default_credential = DefaultAzureCredential()
-        blob_service_client = BlobServiceClient(account_url="{}://{}.blob.core.windows.net".format(
-            "https", storage_account_name), credential=default_credential)
-
-        # Create the container
-        container_name = "siebel"
+    # Create the container
+    container_name = "siebel"
+    try:
         container_client = blob_service_client.create_container(container_name)
         logging.info(container_client.container_name)
-
-        return func.HttpResponse(f"{container_name} container created.", status_code=200)
-
-    return func.HttpResponse(f"{container_name} request bypassed.", status_code=401)
+    except Exception as e:
+        log_helper.log_error(f"{e}")
+    finally:
+        blob_service_client.close()
+    
+    log_helper.log_info(f"Finished container creation- {container_name}")
+    return func.HttpResponse(f"{container_name} container created.", status_code=200)
