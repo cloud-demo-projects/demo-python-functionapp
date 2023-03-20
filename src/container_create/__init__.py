@@ -29,6 +29,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     
 def run(req: func.HttpRequest) -> str:
     log_helper.log_info("Run function execution started")
+    response = CreateContainerResponse(RUN_ID)
     
     # clientside validations
     try:
@@ -45,22 +46,42 @@ def run(req: func.HttpRequest) -> str:
         log_helper.log_error(BAD_REQUEST_MESSAGE)
         return func.HttpResponse(e.json(), status_code=400)
     
-
-    storage_account_name = "adls12133"
+    response.containers.append(create(producer.ContainerName, producer.StorageAccountName))
+    
+    log_helper.log_info("Function execution finished with status 200 (OK)")
+    log_helper.log_info(f"Response body: {json.dumps(response.__dict__, default = lambda o: o.__dict__,sort_keys=True)}")
+    
+    # return func.HttpResponse(f"{container_name} container created.", status_code=200)
+    return func.HttpResponse(
+        json.dumps(response.__dict__, default = lambda o: o.__dict__,sort_keys=True),
+        mimetype="application/json",
+        status_code=200)
+    
+    
+def create(container_name, storage_account_name) -> ContainerProvisioningStatus:
+    log_helper.log_info(f"Started container {container_name} creation on {storage_account_name}")
+    
+    # storage_account_name = "adls12133"
     # default_credential = DefaultAzureCredential()
     default_credential = auth_helper.get_credentials()
+    cps = ContainerProvisioningStatus(storage_account_name,container_name)
+    
     blob_service_client = BlobServiceClient(account_url="{}://{}.blob.core.windows.net".format(
         "https", storage_account_name), credential=default_credential)
 
-    # Create the container
-    container_name = "siebel"
+    # container_name = "siebel"
     try:
         container_client = blob_service_client.create_container(container_name)
         logging.info(container_client.container_name)
+        cps.message = "Container provisioned successfully"
+        cps.status = ProvisioningStatus.Done.value
     except Exception as e:
         log_helper.log_error(f"{e}")
+        cps.message = f"{e}"
+        cps.status = ProvisioningStatus.Failed.value
     finally:
         blob_service_client.close()
-    
+
     log_helper.log_info(f"Finished container creation- {container_name}")
-    return func.HttpResponse(f"{container_name} container created.", status_code=200)
+    
+    return cps
