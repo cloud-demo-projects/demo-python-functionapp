@@ -25,7 +25,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
 
     if (not auth_helper.is_authorized(req)):
-        log_helper.log_error("Unthorized execution attempt")
+        log_helper.log_error("Unathorized execution attempt")
         return func.HttpResponse(json.dumps({ 'reason' : HttpStatusReasons.Unauthorized.value }), mimetype="application/json",status_code=401)
 
     return run(req)
