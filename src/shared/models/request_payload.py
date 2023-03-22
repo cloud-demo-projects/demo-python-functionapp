@@ -5,6 +5,11 @@ import os
 import re
 from json import JSONEncoder
 
+class Network(BaseModel):
+  VnetName: str
+  VnetRGName: str
+  SubnetName: str
+
 class CoreProducer(BaseModel):
   StorageAccountName: str
   ContainerName: str

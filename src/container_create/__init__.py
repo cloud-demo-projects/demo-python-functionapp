@@ -1,17 +1,16 @@
 import logging
 import azure.functions as func
-from azure.identity import DefaultAzureCredential
 from azure.storage.blob import BlobServiceClient
 from shared.helpers.log_helper import LogHelper
 from shared.helpers.auth_helper import AuthHelper
 from shared.models.request_payload import CoreProducer
 from shared.models.response_payload import ContainerProvisioningStatus
-from shared.enums import HttpStatusReasons
-from shared.enums import ProvisioningStatus
+from shared.enums.enums import HttpStatusReasons, ProvisioningStatus
+from shared.models.response_payload import ContainerProvisioningStatus, CreateContainerResponse
 import json
-import base64
 import os
 import uuid
+from pydantic import ValidationError
 
 # Global Variables
 STORAGE_ACCOUNT = os.environ.get('STORAGE_ACCOUNT')
