@@ -87,4 +87,6 @@ def create(container_name, storage_account_name) -> ContainerProvisioningStatus:
     finally:
         blob_service_client.close()
 
+    log_helper.log_info(f"Finished container creation- {container_name}")
+
     return cps
