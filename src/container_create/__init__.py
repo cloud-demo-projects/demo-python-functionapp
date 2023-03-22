@@ -62,6 +62,12 @@ def run(req: func.HttpRequest) -> str:
 
 
 def create(container_name, storage_account_name) -> ContainerProvisioningStatus:
+    """Creates the storage account container
+
+    :param storage_account_name: name of the storage account
+    :param container_name: name of the container
+    :returns: class ContainerProvisioningStatus
+    """
     log_helper.log_info(f"Started container {container_name} creation on {storage_account_name}")
 
     default_credential = auth_helper.get_credentials()
@@ -71,8 +77,7 @@ def create(container_name, storage_account_name) -> ContainerProvisioningStatus:
         "https", storage_account_name), credential=default_credential)
 
     try:
-        container_client = blob_service_client.create_container(container_name)
-        logging.info(container_client.container_name)
+        blob_service_client.create_container(container_name)
         cps.message = "Container provisioned successfully"
         cps.status = ProvisioningStatus.Done.value
     except Exception as e:
@@ -81,7 +86,5 @@ def create(container_name, storage_account_name) -> ContainerProvisioningStatus:
         cps.status = ProvisioningStatus.Failed.value
     finally:
         blob_service_client.close()
-
-    log_helper.log_info(f"Finished container creation- {container_name}")
 
     return cps
