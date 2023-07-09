@@ -24,5 +24,6 @@ python -m unittest .\tests\test_container_create.py
 - pip install pre-commit
 - pre-commit sample-config > .pre-commit-config.yaml
 - pre-commit install
+- Works now with both "got commit" and VS code commits as shown below-
   ![image](https://github.com/cloud-demo-projects/demo-python-functionapp/assets/67367858/338395f5-684b-47c3-aa3c-196d07f78636)
 
