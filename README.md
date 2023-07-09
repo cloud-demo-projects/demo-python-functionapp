@@ -1,5 +1,5 @@
 # Demo Python Functionapp
-One stop location to play around python functionapp IaC(bicep), CICD, Azure AD Authentication & Authorization and Unit tests.
+Python functionapp with IaC(bicep), CICD, Azure AD Authentication & Authorization, Unit tests and Azure SQL interaction.
 
 # CICD
 [![Build Status](https://dev.azure.com/bahrinipun/demo-python-functionapp/_apis/build/status/python-functionapp-cicd?branchName=main)](https://dev.azure.com/bahrinipun/demo-python-functionapp/_build/latest?definitionId=93&branchName=main)
@@ -13,3 +13,9 @@ One stop location to play around python functionapp IaC(bicep), CICD, Azure AD A
 
 ## Unit Testing
 python -m unittest .\tests\test_container_create.py
+
+## Azure SQL 
+- Database server creation with functionapp-SQL network whitelisting and SPN as databaserver admin
+- Database and schema ceation
+- Database role, contained users(MSI and Engineers) and permissions creation
+- Database tables creation
