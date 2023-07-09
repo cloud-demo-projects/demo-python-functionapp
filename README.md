@@ -19,3 +19,10 @@ python -m unittest .\tests\test_container_create.py
 - Database and schema ceation
 - Database role, contained users(MSI and Engineers) and permissions creation
 - Database tables creation
+
+## Pre-Commit Hook
+- pip install pre-commit
+- pre-commit sample-config > .pre-commit-config.yaml
+- pre-commit install
+  ![image](https://github.com/cloud-demo-projects/demo-python-functionapp/assets/67367858/338395f5-684b-47c3-aa3c-196d07f78636)
+
