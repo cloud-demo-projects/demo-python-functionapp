@@ -1,5 +1,5 @@
 # Demo Python Functionapp
-Python functionapp with IaC(bicep), CICD, Azure AD Authentication & Authorization, Unit tests and Azure SQL interaction.
+Python functionapp with IaC(bicep), CICD, Azure AD Authentication & Authorization, Unit tests, Azure SQL interaction and Open API.
 
 # CICD
 [![Build Status](https://dev.azure.com/bahrinipun/demo-python-functionapp/_apis/build/status/python-functionapp-cicd?branchName=main)](https://dev.azure.com/bahrinipun/demo-python-functionapp/_build/latest?definitionId=93&branchName=main)
