@@ -5,6 +5,10 @@ Python functionapp with IaC(bicep), CICD, Azure AD Authentication & Authorizatio
 [![Build Status](https://dev.azure.com/bahrinipun/demo-python-functionapp/_apis/build/status/python-functionapp-cicd?branchName=main)](https://dev.azure.com/bahrinipun/demo-python-functionapp/_build/latest?definitionId=93&branchName=main)
 
 # Features
+
+## OpenAPI Integration
+Open API invocation to retrieve information.
+
 ## FunctionApp authentication & authorization using Azure AD frontend and client application
 ![image](https://user-images.githubusercontent.com/67367858/226348155-41b179d5-8c22-4ef6-a0e9-6c45fa2089b6.png)
 
