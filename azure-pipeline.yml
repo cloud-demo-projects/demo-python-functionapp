@@ -14,8 +14,11 @@ stages:
   displayName: Dev
   jobs:
     - job:
-      displayName: EU Dev
+      displayName: Development
       steps:
+        - checkout: self
+          clean: true
+
         - task: AzureCLI@1
           displayName: "Deploy - Infra"
           name: "Create_Infra"
@@ -29,3 +32,30 @@ stages:
               --template-file "$(System.DefaultWorkingDirectory)/templates/main.bicep" \
               --parameters "$(System.DefaultWorkingDirectory)/parameters/infra.dev.json" \
               --verbose
+
+        - task: UsePythonVersion@0
+          inputs:
+            versionSpec: '3.7'
+            addToPath: true
+
+        - script: |
+            python -m pip install --upgrade pip
+            pip install -r requirements.txt
+          displayName: 'Install dependencies'
+
+        - task: ArchiveFiles@2
+          displayName: 'Archive files'
+          inputs:
+            rootFolderOrFile: '$(workingDirectory)'
+            includeRootFolder: false
+            archiveType: zip
+            archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+            replaceExistingArchive: true
+
+        - task: AzureFunctionApp@1
+          displayName: 'Azure functions app deploy'
+          inputs:
+            azureSubscription: '$(serviceConnectionName)'
+            appType: functionAppLinux
+            appName: $(functionAppName)
+            package: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
